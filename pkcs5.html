@@ -59,14 +59,30 @@
 </pre></div>
 </div>
 <p>This module contains a function which performs the pkcs5 password hashing scheme. Arguments are available to specify the iteration count (defaults to 1024), hash algo (defaults to sha256), and the hash length (defaults to the full hash).</p>
+<dl class="function">
+<dt id="tomcrypt.pkcs5.pkcs5">
+<tt class="descclassname">tomcrypt.pkcs5.</tt><tt class="descname">pkcs5</tt><big>(</big><em>password</em>, <em>salt</em>, <em>iteration_count</em>, <em>hash</em><big>)</big><a class="headerlink" href="#tomcrypt.pkcs5.pkcs5" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates PKCS #5 Password-based Encryption Standard (version 2) of a
+given string with a given salt.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>password</strong> (<em>bytes</em>) &#8211; The password to hash.</li>
+<li><strong>salt</strong> (<em>bytes</em>) &#8211; The salt to use.</li>
+<li><strong>iteration_count</strong> (<em>int</em>) &#8211; The number of times to hash.</li>
+<li><strong>hash</strong> &#8211; The algorithm to use: a <tt class="docutils literal"><span class="pre">str</span></tt> or <a class="reference internal" href="hash.html#tomcrypt.hash.Descriptor" title="tomcrypt.hash.Descriptor"><tt class="xref py py-class docutils literal"><span class="pre">hash.Descriptor</span></tt></a>.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">pkcs5</span><span class="p">(</span><span class="n">b</span><span class="s">&#39;password&#39;</span><span class="p">,</span> <span class="n">salt</span><span class="o">=</span><span class="s">&#39;salt&#39;</span><span class="p">,</span> <span class="n">iteration_count</span><span class="o">=</span><span class="mi">1024</span><span class="p">,</span> <span class="nb">hash</span><span class="o">=</span><span class="s">&#39;sha256&#39;</span><span class="p">)</span>
 <span class="go">b&#39;#\x1a\xfb}\xcd.\x86\x0c\xfdX\xab\x137+\xd1,\x920v\xc3Y\x8a\x12\x19`2\x0fo\xec\x8aV\x98&#39;</span>
 </pre></div>
 </div>
-<dl class="function">
-<dt id="tomcrypt.pkcs5.pkcs5">
-<tt class="descclassname">tomcrypt.pkcs5.</tt><tt class="descname">pkcs5</tt><big>(</big><em>password</em>, <em>salt</em>, <em>iteration_count</em>, <em>hash</em><big>)</big><a class="headerlink" href="#tomcrypt.pkcs5.pkcs5" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+</dd></dl>
 
 </div>
 
