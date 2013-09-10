@@ -55,12 +55,12 @@
 <dt id="tomcrypt.utils.pem_decode">
 <tt class="descclassname">tomcrypt.utils.</tt><tt class="descname">pem_decode</tt><big>(</big><em>content</em><big>)</big><a class="headerlink" href="#tomcrypt.utils.pem_decode" title="Permalink to this definition">¶</a></dt>
 <dd><p>PEM decode a key.</p>
-<dl class="docutils">
-<dt>Returns a tuple of:</dt>
-<dd>type &#8211; &#8220;RSA&#8221;, &#8220;EC&#8221;, or None (likely if public)
-mode &#8211; &#8220;PRIVATE&#8221; or &#8220;PUBLIC&#8221;
-content &#8211; Decoded content.</dd>
-</dl>
+<p>Returns a tuple of:</p>
+<ul class="simple">
+<li>type: E.g. <tt class="docutils literal"><span class="pre">&quot;RSA&quot;</span></tt>, <tt class="docutils literal"><span class="pre">&quot;EC&quot;</span></tt>, or None (likely if public);</li>
+<li>mode: <tt class="docutils literal"><span class="pre">&quot;PRIVATE&quot;</span></tt> or <tt class="docutils literal"><span class="pre">&quot;PUBLIC&quot;</span></tt>;</li>
+<li>content: original content.</li>
+</ul>
 <p>Throws a tomcrypt.Error if content is not PEM encoded.</p>
 </dd></dl>
 
@@ -68,12 +68,31 @@ content &#8211; Decoded content.</dd>
 <dt id="tomcrypt.utils.pem_encode">
 <tt class="descclassname">tomcrypt.utils.</tt><tt class="descname">pem_encode</tt><big>(</big><em>type</em>, <em>mode</em>, <em>content</em><big>)</big><a class="headerlink" href="#tomcrypt.utils.pem_encode" title="Permalink to this definition">¶</a></dt>
 <dd><p>PEM encode a key.</p>
-<dl class="docutils">
-<dt>Params:</dt>
-<dd>type &#8211; &#8220;RSA&#8221;, &#8220;EC&#8221;, etc.
-mode &#8211; &#8220;PUBLIC&#8221; or &#8220;PRIVATE&#8221;
-content &#8211; The thing to encode.</dd>
-</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>type</strong> (<em>str</em>) &#8211; <tt class="docutils literal"><span class="pre">&quot;RSA&quot;</span></tt>, <tt class="docutils literal"><span class="pre">&quot;EC&quot;</span></tt>, etc.</li>
+<li><strong>mode</strong> (<em>str</em>) &#8211; <tt class="docutils literal"><span class="pre">&quot;PUBLIC&quot;</span></tt> or <tt class="docutils literal"><span class="pre">&quot;PRIVATE&quot;</span></tt></li>
+<li><strong>content</strong> (<em>bytes</em>) &#8211; The content to encode.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">pem_encode</span><span class="p">(</span><span class="s">&#39;TEST&#39;</span><span class="p">,</span> <span class="s">&#39;PRIVATE&#39;</span><span class="p">,</span> <span class="n">b</span><span class="s">&#39;private content&#39;</span><span class="p">))</span>
+<span class="go">-----BEGIN TEST PRIVATE KEY-----</span>
+<span class="go">cHJpdmF0ZSBjb250ZW50</span>
+<span class="go">-----END TEST PRIVATE KEY-----</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">pem_encode</span><span class="p">(</span><span class="s">&#39;TEST&#39;</span><span class="p">,</span> <span class="s">&#39;PUBLIC&#39;</span><span class="p">,</span> <span class="n">b</span><span class="s">&#39;public content&#39;</span><span class="p">))</span>
+<span class="go">-----BEGIN PUBLIC KEY-----</span>
+<span class="go">cHVibGljIGNvbnRlbnQ=</span>
+<span class="go">-----END PUBLIC KEY-----</span>
+</pre></div>
+</div>
 </dd></dl>
 
 </div>

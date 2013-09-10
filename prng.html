@@ -107,14 +107,14 @@ auto-seeded from the operating system (e.g. /dev/urandom on <a href="#id1"><span
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># Manual seeding:</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">myprng</span> <span class="o">=</span> <span class="n">PRNG</span><span class="p">(</span><span class="s">&#39;yarrow&#39;</span><span class="p">)</span> <span class="c"># or yarrow()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">myprng</span><span class="o">.</span><span class="n">add_entropy</span><span class="p">(</span><span class="n">b</span><span class="s">&#39;from a random oracle&#39;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">myprng</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
-<span class="go">b&#39;\xa5\x0f\xc3\x84\xd9\xb1LK&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">myprng</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">8</span><span class="p">))</span>
+<span class="go">8</span>
 </pre></div>
 </div>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># Auto-seeding (with 1KB of data from the system PRNG):</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">myprng</span> <span class="o">=</span> <span class="n">PRNG</span><span class="p">(</span><span class="s">&#39;yarrow&#39;</span><span class="p">,</span> <span class="mi">1024</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">myprng</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span> 
-<span class="go">b&#39;...&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">myprng</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">8</span><span class="p">))</span>
+<span class="go">8</span>
 </pre></div>
 </div>
 <dl class="method">
@@ -164,8 +164,8 @@ pool.</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">state</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">get_state</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">b</span> <span class="o">=</span> <span class="n">yarrow</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">b</span><span class="o">.</span><span class="n">set_state</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">b</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
-<span class="go">b&#39;\xa8\xe6\xbc\xbf \xb2\x18!&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">8</span><span class="p">))</span>
+<span class="go">8</span>
 </pre></div>
 </div>
 </dd></dl>

@@ -114,7 +114,7 @@ via kwargs.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>name</strong> (<em>str</em>) &#8211; Name of a cipher, e.g. &#8220;aes&#8221; or &#8220;3des&#8221;.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>name</strong> (<em>str</em>) &#8211; Name of a cipher, e.g. <tt class="docutils literal"><span class="pre">&quot;aes&quot;</span></tt> or <tt class="docutils literal"><span class="pre">&quot;3des&quot;</span></tt>.</td>
 </tr>
 </tbody>
 </table>
@@ -125,10 +125,11 @@ via kwargs.</p>
 
 <dl class="method">
 <dt id="tomcrypt.cipher.Descriptor.__call__">
-<tt class="descname">__call__</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#tomcrypt.cipher.Descriptor.__call__" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">__call__</tt><big>(</big><em>key</em>, <em>iv=None</em>, <em>mode='ctr'</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#tomcrypt.cipher.Descriptor.__call__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize a cipher state.</p>
-<p>This is a convenience for constructing Cipher objects.</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">cipher</span> <span class="o">=</span> <span class="n">aes</span><span class="p">(</span><span class="n">b</span><span class="s">&#39;0123456789abcdef&#39;</span><span class="p">)</span>
+<p>This is a convenience for constructing <a class="reference internal" href="#tomcrypt.cipher.Cipher" title="tomcrypt.cipher.Cipher"><tt class="xref py py-class docutils literal"><span class="pre">Cipher</span></tt></a>
+objects; any keyword arguments will be passed to the constructor.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">cipher</span> <span class="o">=</span> <span class="n">aes</span><span class="p">(</span><span class="n">b</span><span class="s">&#39;0123456789abcdef&#39;</span><span class="p">,</span> <span class="n">b</span><span class="s">&#39;</span><span class="se">\0</span><span class="s">&#39;</span> <span class="o">*</span> <span class="mi">16</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">cipher</span><span class="o">.</span><span class="n">encrypt</span><span class="p">(</span><span class="n">b</span><span class="s">&#39;hello&#39;</span><span class="p">)</span>
 <span class="go">b&#39;c\xfey\xb6$&#39;</span>
 </pre></div>
@@ -225,7 +226,7 @@ via kwargs.</p>
 <dt id="tomcrypt.cipher.Cipher">
 <em class="property">class </em><tt class="descclassname">tomcrypt.cipher.</tt><tt class="descname">Cipher</tt><a class="headerlink" href="#tomcrypt.cipher.Cipher" title="Permalink to this definition">¶</a></dt>
 <dd><p>All state required to encrypt/decrypt with a symmetric cipher.</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">cipher</span> <span class="o">=</span> <span class="n">Cipher</span><span class="p">(</span><span class="n">b</span><span class="s">&#39;0123456789abcdef&#39;</span><span class="p">,</span> <span class="n">b</span><span class="s">&#39;0123456789abcdef&#39;</span><span class="p">,</span> <span class="s">&#39;aes&#39;</span><span class="p">,</span> <span class="s">&#39;cbc&#39;</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">cipher</span> <span class="o">=</span> <span class="n">Cipher</span><span class="p">(</span><span class="n">b</span><span class="s">&#39;0123456789abcdef&#39;</span><span class="p">,</span> <span class="n">b</span><span class="s">&#39;0123456789abcdef&#39;</span><span class="p">,</span> <span class="n">cipher</span><span class="o">=</span><span class="s">&#39;aes&#39;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s">&#39;cbc&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>See <tt class="xref py py-meth docutils literal"><span class="pre">Cipher.add_header()</span></tt> for example of EAX mode.</p>
@@ -243,7 +244,7 @@ via kwargs.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>key</strong> (<em>bytes</em>) &#8211; Symmetric key.</li>
-<li><strong>iv</strong> (<em>bytes</em>) &#8211; Initialization vector; <tt class="docutils literal"><span class="pre">None</span></tt> -&gt; null IV.</li>
+<li><strong>iv</strong> (<em>bytes</em>) &#8211; Initialization vector; required for non-ECB modes.</li>
 <li><strong>cipher</strong> (<em>str</em>) &#8211; The name of the cipher to use.</li>
 <li><strong>mode</strong> (<em>str</em>) &#8211; Cipher block chaining more to use.</li>
 </ul>
@@ -272,7 +273,7 @@ via kwargs.</p>
 <dt id="tomcrypt.cipher.Cipher.encrypt">
 <tt class="descclassname">Cipher.</tt><tt class="descname">encrypt</tt><big>(</big><em>input</em><big>)</big><a class="headerlink" href="#tomcrypt.cipher.Cipher.encrypt" title="Permalink to this definition">¶</a></dt>
 <dd><p>Encrypt a string.</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">cipher</span> <span class="o">=</span> <span class="n">aes</span><span class="p">(</span><span class="n">b</span><span class="s">&#39;0123456789abcdef&#39;</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">cipher</span> <span class="o">=</span> <span class="n">aes</span><span class="p">(</span><span class="n">b</span><span class="s">&#39;0123456789abcdef&#39;</span><span class="p">,</span> <span class="n">b</span><span class="s">&#39;</span><span class="se">\0</span><span class="s">&#39;</span> <span class="o">*</span> <span class="mi">16</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">cipher</span><span class="o">.</span><span class="n">encrypt</span><span class="p">(</span><span class="n">b</span><span class="s">&#39;this is a message&#39;</span><span class="p">)</span>
 <span class="go">b&#39;\x7f\xf3|\xa9k-\xd3\xd5t=\xa2\xa1\xb3lT\xb2d&#39;</span>
 </pre></div>
@@ -283,7 +284,7 @@ via kwargs.</p>
 <dt id="tomcrypt.cipher.Cipher.decrypt">
 <tt class="descclassname">Cipher.</tt><tt class="descname">decrypt</tt><big>(</big><em>input</em><big>)</big><a class="headerlink" href="#tomcrypt.cipher.Cipher.decrypt" title="Permalink to this definition">¶</a></dt>
 <dd><p>Decrypt a string.</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">cipher</span> <span class="o">=</span> <span class="n">aes</span><span class="p">(</span><span class="n">b</span><span class="s">&#39;0123456789abcdef&#39;</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">cipher</span> <span class="o">=</span> <span class="n">aes</span><span class="p">(</span><span class="n">b</span><span class="s">&#39;0123456789abcdef&#39;</span><span class="p">,</span> <span class="n">b</span><span class="s">&#39;</span><span class="se">\0</span><span class="s">&#39;</span> <span class="o">*</span> <span class="mi">16</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">cipher</span><span class="o">.</span><span class="n">decrypt</span><span class="p">(</span><span class="n">b</span><span class="s">&#39;</span><span class="se">\x7f\xf3</span><span class="s">|</span><span class="se">\xa9</span><span class="s">k-</span><span class="se">\xd3\xd5</span><span class="s">t=</span><span class="se">\xa2\xa1\xb3</span><span class="s">lT</span><span class="se">\xb2</span><span class="s">d&#39;</span><span class="p">)</span>
 <span class="go">b&#39;this is a message&#39;</span>
 </pre></div>
@@ -299,16 +300,20 @@ via kwargs.</p>
 <dt id="tomcrypt.cipher.Cipher.get_iv">
 <tt class="descclassname">Cipher.</tt><tt class="descname">get_iv</tt><big>(</big><big>)</big><a class="headerlink" href="#tomcrypt.cipher.Cipher.get_iv" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the current IV, for modes that use it.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns bytes:</th><td class="field-body">The current IV.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Raises tomcrypt.Error:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">when the mode does not use IVs.</td>
+</tr>
+</tbody>
+</table>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">cipher</span> <span class="o">=</span> <span class="n">aes</span><span class="p">(</span><span class="n">b</span><span class="s">&#39;0123456789abcdef&#39;</span><span class="p">,</span> <span class="n">b</span><span class="s">&#39;ThisWillSetTheIV&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">cipher</span><span class="o">.</span><span class="n">get_iv</span><span class="p">()</span>
 <span class="go">b&#39;ThisWillSetTheIV&#39;</span>
-</pre></div>
-</div>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">cipher</span> <span class="o">=</span> <span class="n">aes</span><span class="p">(</span><span class="n">b</span><span class="s">&#39;0123456789abcdef&#39;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s">&#39;ecb&#39;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">cipher</span><span class="o">.</span><span class="n">get_iv</span><span class="p">()</span>
-<span class="gt">Traceback (most recent call last):</span>
-<span class="c">...</span>
-<span class="gr">tomcrypt.Error</span>: <span class="n">&#39;ecb&#39; mode does not use an IV</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -319,17 +324,21 @@ via kwargs.</p>
 <dd><p>Sets the current IV, for modes that use it.</p>
 <p>See the LibTomCrypt manual section 3.4.6 for what, precisely, this
 function will do depending on the chaining mode.</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">cipher</span> <span class="o">=</span> <span class="n">aes</span><span class="p">(</span><span class="n">b</span><span class="s">&#39;0123456789abcdef&#39;</span><span class="p">)</span>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>iv</strong> (<em>bytes</em>) &#8211; The current IV.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Raises tomcrypt.Error:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">When the mode does not use IVs.</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">cipher</span> <span class="o">=</span> <span class="n">aes</span><span class="p">(</span><span class="n">b</span><span class="s">&#39;0123456789abcdef&#39;</span><span class="p">,</span> <span class="n">b</span><span class="s">&#39;</span><span class="se">\0</span><span class="s">&#39;</span> <span class="o">*</span> <span class="mi">16</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">cipher</span><span class="o">.</span><span class="n">set_iv</span><span class="p">(</span><span class="n">b</span><span class="s">&#39;ThisWillSetTheIV&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">cipher</span><span class="o">.</span><span class="n">encrypt</span><span class="p">(</span><span class="n">b</span><span class="s">&#39;hello&#39;</span><span class="p">)</span>
 <span class="go">b&#39;\xe2\xef\xc5\xe6\x9e&#39;</span>
-</pre></div>
-</div>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">cipher</span> <span class="o">=</span> <span class="n">aes</span><span class="p">(</span><span class="n">b</span><span class="s">&#39;0123456789abcdef&#39;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s">&#39;ecb&#39;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">cipher</span><span class="o">.</span><span class="n">set_iv</span><span class="p">(</span><span class="n">b</span><span class="s">&#39;does not matter&#39;</span><span class="p">)</span>
-<span class="gt">Traceback (most recent call last):</span>
-<span class="c">...</span>
-<span class="gr">tomcrypt.Error</span>: <span class="n">&#39;ecb&#39; mode does not use an IV</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -343,7 +352,7 @@ function will do depending on the chaining mode.</p>
 <dt id="tomcrypt.cipher.Cipher.add_header">
 <tt class="descclassname">Cipher.</tt><tt class="descname">add_header</tt><big>(</big><em>header</em><big>)</big><a class="headerlink" href="#tomcrypt.cipher.Cipher.add_header" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add the given string to the EAX header. Only for EAX mode.</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">cipher</span> <span class="o">=</span> <span class="n">aes</span><span class="p">(</span><span class="n">b</span><span class="s">&#39;0123456789abcdef&#39;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s">&#39;eax&#39;</span><span class="p">,</span> <span class="n">nonce</span><span class="o">=</span><span class="n">b</span><span class="s">&#39;random&#39;</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">cipher</span> <span class="o">=</span> <span class="n">aes</span><span class="p">(</span><span class="n">b</span><span class="s">&#39;0123456789abcdef&#39;</span><span class="p">,</span> <span class="n">b</span><span class="s">&#39;</span><span class="se">\0</span><span class="s">&#39;</span> <span class="o">*</span> <span class="mi">16</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s">&#39;eax&#39;</span><span class="p">,</span> <span class="n">nonce</span><span class="o">=</span><span class="n">b</span><span class="s">&#39;random&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">cipher</span><span class="o">.</span><span class="n">add_header</span><span class="p">(</span><span class="n">b</span><span class="s">&#39;a header&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">cipher</span><span class="o">.</span><span class="n">encrypt</span><span class="p">(</span><span class="n">b</span><span class="s">&#39;hello&#39;</span><span class="p">)</span>
 <span class="go">b&#39;Y\x9b\xe5\x87\xcc&#39;</span>
@@ -351,7 +360,7 @@ function will do depending on the chaining mode.</p>
 <span class="go">b&#39;A(|\x9f@I#\x0f\x93\x90Z,\xb5A\x9bN&#39;</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">cipher</span> <span class="o">=</span> <span class="n">aes</span><span class="p">(</span><span class="n">b</span><span class="s">&#39;0123456789abcdef&#39;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s">&#39;eax&#39;</span><span class="p">,</span> <span class="n">nonce</span><span class="o">=</span><span class="n">b</span><span class="s">&#39;random&#39;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="n">b</span><span class="s">&#39;a header&#39;</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">cipher</span> <span class="o">=</span> <span class="n">aes</span><span class="p">(</span><span class="n">b</span><span class="s">&#39;0123456789abcdef&#39;</span><span class="p">,</span> <span class="n">b</span><span class="s">&#39;</span><span class="se">\0</span><span class="s">&#39;</span> <span class="o">*</span> <span class="mi">16</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s">&#39;eax&#39;</span><span class="p">,</span> <span class="n">nonce</span><span class="o">=</span><span class="n">b</span><span class="s">&#39;random&#39;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="n">b</span><span class="s">&#39;a header&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">cipher</span><span class="o">.</span><span class="n">decrypt</span><span class="p">(</span><span class="n">b</span><span class="s">&#39;Y</span><span class="se">\x9b\xe5\x87\xcc</span><span class="s">&#39;</span><span class="p">)</span>
 <span class="go">b&#39;hello&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">cipher</span><span class="o">.</span><span class="n">done</span><span class="p">()</span>
